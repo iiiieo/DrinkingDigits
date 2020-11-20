@@ -1,0 +1,12 @@
+{
+  "name": "Trinkspiel",
+  "displayName": "Trinkspiel",
+  "expo": {
+    "name": "Trinkspiel",
+    "slug": "Trinkspiel",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
