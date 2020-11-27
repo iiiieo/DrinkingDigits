@@ -1,50 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, Text, View, StyleSheet } from "react-native";
 import ClickableButton from "../util/ClickableButton";
-import LocaleContext from "../util/LocalContext";
-import JoinModal from "./JoinModal"
-import LoadingModal from "./LoadingModal"
+import JoinModal from "./JoinModal";
+import LoadingModal from "./LoadingModal";
+import StoreContainer from "../Store";
 
-class Rooms extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isJoinModalVisible: false};
-  }
-  toggleModal = () => {
-    this.setState({isJoinModalVisible: !this.state.isJoinModalVisible});
-  };
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <LocaleContext.Consumer>
-          {(loc) => (
-            <React.Fragment>
-              <ClickableButton
-                onPress={() =>
-                  loc.room ? loc.leaveRoom(loc.room) : loc.createRoom()
-                }
-                color={loc.room ? "#c0392b" : "#2980b9"}
-                tintColor={"#fff"}
-                title={loc.room ? "Leave Room" : "Create Room"}
-              />
-              {loc.room ? null : (
-                <ClickableButton
-                  onPress={() => this.toggleModal()}
-                  color={"#16a085"}
-                  tintColor={"#fff"}
-                  title={"Join Room"}
-                />
-              )}
-              <Text style={styles.roomText}>Room: {loc.room || "none"}</Text>
-              <LoadingModal isVisible={loc.isLoading}/>
-              <JoinModal isVisible={this.state.isJoinModalVisible} toggleVisibility={this.toggleModal} join={loc.joinRoom}/>
-              {console.log(loc.isLoading)}
-            </React.Fragment>
-          )}
-        </LocaleContext.Consumer>
-      </SafeAreaView>
-    );
-  }
+function Rooms() {
+  let store = StoreContainer.useContainer();
+  let [isJoinModalVisible, setJoinModalVisible] = useState(false);
+  return (
+    <SafeAreaView style={styles.container}>
+      <ClickableButton
+        onPress={() => (store.room ? store.leaveRoom(store.room) : store.createRoom())}
+        color={store.room ? "#c0392b" : "#2980b9"}
+        tintColor={"#fff"}
+        title={store.room ? "Leave Room" : "Create Room"}
+      />
+      {store.room ? null : (
+        <ClickableButton
+          onPress={() => {setJoinModalVisible(!isJoinModalVisible)}}
+          color={"#16a085"}
+          tintColor={"#fff"}
+          title={"Join Room"}
+        />
+      )}
+      <Text style={styles.roomText}>Room: {store.room || "none"}</Text>
+      <LoadingModal isVisible={store.isLoading} />
+      <JoinModal
+        isVisible={isJoinModalVisible}
+        toggleVisibility={() => {setJoinModalVisible(!isJoinModalVisible)}}
+        join={store.joinRoom}
+      />
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

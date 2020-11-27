@@ -14,7 +14,7 @@ function JoinModal({ isVisible }) {
   if (Platform.OS === "web") {
     modal = (
       <ModalWeb
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={isVisible}
         onRequestClose={() => {
@@ -27,7 +27,7 @@ function JoinModal({ isVisible }) {
   } else {
     modal = (
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={isVisible}
         onRequestClose={() => {
