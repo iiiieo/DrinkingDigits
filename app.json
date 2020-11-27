@@ -1,12 +1,16 @@
 {
-  "name": "Trinkspiel",
-  "displayName": "Trinkspiel",
+  "name": "DrinkingDigits",
+  "displayName": "Drinking Digits",
   "expo": {
-    "name": "Trinkspiel",
-    "slug": "Trinkspiel",
+    "name": "DrinkingDigits",
+    "slug": "DrinkingDigits",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.achtbyte.drinkingdigits"
+    },
+    "description": ""
   }
 }
